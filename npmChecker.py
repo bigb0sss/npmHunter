@@ -30,8 +30,6 @@ def npmVerify(feed):
             r = requests.get(url)
             status = r.status_code
             response = r.text
-            #print(status)
-            #print(response)
 
             if status != 200:
                 print(bcolors.WARNING + "[+] Package %s might be Vulnerable!" % i.rstrip() + bcolors.ENDC)
