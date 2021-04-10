@@ -24,7 +24,7 @@ echo '{
 # Trufflehog
 mkdir -p npm &&
 echo "${yellow}[INFO] TruffleHog is running...(This may take a looong time)${clear}"
-while read i; do echo "[INFO] TruffleHog Running: $i" && trufflehog --regex --rules rules.json --entropy=False https://github.com/$repoName/$i 2>/dev/null > npm/$i; done < github-repo.txt &&
+while read i; do echo "[INFO] TruffleHog Running: $i" && trufflehog --max_depth 1 --regex --rules rules.json --entropy=False https://github.com/$repoName/$i 2>/dev/null > npm/$i; done < github-repo.txt &&
 echo "${yellow}[INFO] Done!${clear}"
 
 # Deleting files with 0 size & save the file name
@@ -42,7 +42,6 @@ rm tmp &&
 echo "${yellow}[INFO] Downloading package.json files...${clear}" &&
 mkdir -p npm/package && 
 while read i; do wget https://raw.githubusercontent.com/$repoName/$i/master/package.json -O npm/package/$i 2>/dev/null; done < npm/file_package.txt &&
-echo done
 
 # Deleting files with 0 size & save the file name
 find npm/package -type f -empty -delete && 
